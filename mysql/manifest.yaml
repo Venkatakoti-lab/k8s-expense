@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: expense
+  labels:
+    app: mysql
+    tier: mysql
+    project: expense
+    purpose: deployment 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      tier: mysql
+      project: expense
+      purpose: deployment 
+  template:
+    metadata:
+      labels:
+        app: mysql
+        tier: mysql
+        project: expense
+        purpose: deployment 
+    spec:
+      containers:
+      - name: mysql
+        # image: nginx:1.14.2
+        image: koti0120/mysql:1.0.0
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  # type: LoadBalancer we are commenting because db doesn't need public access
+  selector:
+    app: mysql
+    tier: mysql
+    purpose: deployment
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
