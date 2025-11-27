@@ -29,7 +29,7 @@ spec:
         # image: nginx:1.14.2
         image: koti0120/frontend:1.0.0
         ports:
-        - containerport: 8080
+        - containerPort: 8080
 
 ---
 apiVersion: v1
