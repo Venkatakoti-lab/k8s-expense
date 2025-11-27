@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: expense
+  labels:
+    app: frontend
+    tier: web
+    project: expense
+    purpose: deployment 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+      tier: web
+      project: expense
+      purpose: deployment 
+  template:
+    metadata:
+      labels:
+        app: frontend
+        tier: web
+        project: expense
+        purpose: deployment 
+    spec:
+      containers:
+      - name: frontend
+        # image: nginx:1.14.2
+        image: koti0120/frontend:1.0.0
+        ports:
+        - containerport: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: expense
+spec:
+  # type: LoadBalancer we are commenting because it doesn't need public access..
+  type: LoadBalancer
+  selector:
+    app: frontend
+    tier: web
+    purpose: deployment
+  ports:
+  - protocol: TCP
+    port: 80 #service port
+    targetPort: 80 #mandatory
