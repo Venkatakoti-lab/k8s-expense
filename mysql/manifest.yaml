@@ -35,7 +35,7 @@ kind: Service
 metadata:
   name: mysql
 spec:
-  # type: LoadBalancer we are commenting because db doesn't need public access
+  # type: LoadBalancer we are commenting because db doesn't need public access..
   selector:
     app: mysql
     tier: mysql
